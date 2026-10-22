@@ -2,15 +2,33 @@ import { useState } from "react";
 import { BASE_KM, BASE_FARE, computeFare, pes } from "../data/fareData";
 import { Reveal, useCountUp } from "../hooks";
 
+/**
+ * Step icons: Lucide (ISC) — "map-pin", "map-pinned", "philippine-peso".
+ * Inlined at a 24px grid so they stay crisp at the 40px display size and
+ * inherit `currentColor` from the yellow step tile.
+ */
+const STEP_ICON_CLASS = "h-10 w-10";
+
+const stepIconProps = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+  className: STEP_ICON_CLASS,
+  "aria-hidden": true,
+};
+
 const STEPS = [
   {
     n: "1",
     title: "Pin your start",
     body: "Click the map, search a barangay, or use your phone's live location to drop the yellow START pin.",
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="h-10 w-10" aria-hidden="true">
-        <path d="M24 43S11 29.8 11 19.2C11 12 16.8 6.5 24 6.5s13 5.5 13 12.7C37 29.8 24 43 24 43Z" />
-        <circle cx="24" cy="19" r="5" />
+      <svg {...stepIconProps}>
+        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+        <circle cx="12" cy="10" r="3" />
       </svg>
     ),
   },
@@ -19,10 +37,10 @@ const STEPS = [
     title: "Pin your drop-off",
     body: "Place the red DROP-OFF pin where you're headed. Sakay! traces the real street route between them.",
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="h-10 w-10" aria-hidden="true">
-        <path d="M11 35c-2-7.4 1.6-16.3 10-18.8 7.1-2.1 14.4 2.1 14.4 9.3 0 6.2-5.3 10.6-11.6 10.6-4.7 0-8.1-2.1-10.3-5.2" strokeDasharray="2 4" />
-        <path d="M26.4 29.2s-7.7-7.7-7.7-13.9c0-4.1 3.2-7.3 7.3-7.3s7.3 3.2 7.3 7.3c0 6.2-6.9 13.9-6.9 13.9Z" transform="rotate(-25 26 19)" />
-        <circle cx="26" cy="15.2" r="2.7" transform="rotate(-25 26 15.2)" />
+      <svg {...stepIconProps}>
+        <path d="M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0" />
+        <path d="M4.474 15h-.197a1 1 0 0 0-.969.753l-1.097 4.35a1.5 1.5 0 0 0 1.444 1.898L20.344 22a1.5 1.5 0 0 0 1.446-1.897l-1.098-4.35a1 1 0 0 0-.969-.753h-.197" />
+        <circle cx="12" cy="8" r="2" />
       </svg>
     ),
   },
@@ -31,11 +49,10 @@ const STEPS = [
     title: "Get km · ETA · fare",
     body: "Distance, estimated travel time, and the exact peso fare — computed from the city's own fare matrix rule.",
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="h-10 w-10" aria-hidden="true">
-        <circle cx="24" cy="24" r="17" />
-        <path d="M29.6 16.5c-1.6-1.9-3.8-2.9-6.5-2.9-3.7 0-6.3 2.1-6.3 5.2 0 3.4 2.7 4.8 6.5 6.1 3.9 1.3 6.7 2.8 6.7 6.3 0 3.3-2.8 5.4-6.8 5.4-3.2 0-5.8-1.1-7.5-3.2" />
-        <path d="M21 11.5v25" />
-        <path d="M25.5 11.5v25" />
+      <svg {...stepIconProps}>
+        <path d="M20 11H4" />
+        <path d="M20 7H4" />
+        <path d="M7 21V4a1 1 0 0 1 1-1h4a1 1 0 0 1 0 12H7" />
       </svg>
     ),
   },
