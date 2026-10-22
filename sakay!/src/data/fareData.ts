@@ -25,6 +25,35 @@ export const BASE_KM = 4;
 export const PER_KM = 1;
 export const CITY_CENTER: [number, number] = [6.1112, 125.1735];
 
+/**
+ * Administrative extent of General Santos City.
+ *
+ * Source: the OpenStreetMap city boundary (bbox 5.9575 N – 6.3299 N,
+ * 125.0084 E – 125.2827 E), which agrees with the city's stated
+ * extent of 5°58' – 6°20' N and 125°1' – 125°17' E.
+ *
+ * The fare ordinance only governs trips *within* the city, so pins,
+ * search results and geolocation fixes are all clamped to this box.
+ */
+export const CITY_BOUNDS = {
+  minLat: 5.9575,
+  maxLat: 6.3299,
+  minLng: 125.0084,
+  maxLng: 125.2827,
+} as const;
+
+/** True when a coordinate falls inside General Santos City. */
+export function isWithinCity(lat: number, lng: number): boolean {
+  return (
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    lat >= CITY_BOUNDS.minLat &&
+    lat <= CITY_BOUNDS.maxLat &&
+    lng >= CITY_BOUNDS.minLng &&
+    lng <= CITY_BOUNDS.maxLng
+  );
+}
+
 export interface FareBreakdown {
   base: number;
   extraKm: number;
