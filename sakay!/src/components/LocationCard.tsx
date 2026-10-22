@@ -1,10 +1,43 @@
 import { useRef, useState } from "react";
+import { CITY_BOUNDS, isWithinCity } from "../data/fareData";
 import type { LatLng } from "./FareMap";
 
 interface SearchHit {
   display_name: string;
   lat: string;
   lon: string;
+  address?: {
+    city?: string;
+    town?: string;
+    municipality?: string;
+    city_district?: string;
+    county?: string;
+  };
+}
+
+/** Address keys Nominatim may use to name the city a result sits in. */
+const CITY_NAMES = ["general santos", "gensan", "dadiangas"];
+
+/**
+ * Keeps search results inside General Santos City. The fare ordinance only
+ * covers intra-city trips, so anything outside is silently dropped rather
+ * than shown as a selectable pin.
+ */
+function isCityHit(hit: SearchHit): boolean {
+  const lat = Number(hit.lat);
+  const lng = Number(hit.lon);
+  if (!isWithinCity(lat, lng)) return false;
+
+  const a = hit.address;
+  if (!a) return true; // bbox already passed and there is no locality to check
+
+  const place = [a.city, a.town, a.municipality, a.city_district, a.county]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  if (!place) return true; // no locality data — trust the bounding box
+  return CITY_NAMES.some((name) => place.includes(name));
 }
 
 interface LocationCardProps {
@@ -41,14 +74,19 @@ export default function LocationCard({
     setSearching(true);
     setError(null);
     try {
-      const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&countrycodes=ph&viewbox=125.08,6.0,125.28,6.22&q=${encodeURIComponent(
-        q
-      )}`;
+      // bounded=1 makes Nominatim restrict results to the viewbox instead of
+      // merely preferring it, so a query like "mindanao state university"
+      // cannot surface a Marawi City result.
+      const viewbox = `${CITY_BOUNDS.minLng},${CITY_BOUNDS.maxLat},${CITY_BOUNDS.maxLng},${CITY_BOUNDS.minLat}`;
+      const url =
+        "https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1" +
+        `&limit=8&countrycodes=ph&bounded=1&viewbox=${viewbox}` +
+        `&q=${encodeURIComponent(q)}`;
       const res = await fetch(url, { headers: { Accept: "application/json" } });
       if (!res.ok) throw new Error("search failed");
       const data: SearchHit[] = await res.json();
       if (mySeq !== seq.current) return;
-      setHits(data);
+      setHits(data.filter(isCityHit).slice(0, 5));
       setOpen(true);
     } catch {
       if (mySeq !== seq.current) return;
@@ -70,11 +108,9 @@ export default function LocationCard({
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
-        if (
-          (latitude < 5.9 || latitude > 6.4) &&
-          (longitude < 124.9 || longitude > 125.4)
-        ) {
-          setError("You appear to be outside GenSan — pin on the map instead.");
+        if (!isWithinCity(latitude, longitude)) {
+          setError("You appear to be outside General Santos City — pin on the map instead.");
+          setOpen(true);
           return;
         }
         onSelect(
@@ -82,7 +118,10 @@ export default function LocationCard({
           "My current location"
         );
       },
-      () => setError("Location permission denied — click the map instead."),
+      () => {
+        setError("Location permission denied — click the map instead.");
+        setOpen(true);
+      },
       { enableHighAccuracy: true, timeout: 8000 }
     );
   }
@@ -165,12 +204,14 @@ export default function LocationCard({
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2.2"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
-              <circle cx="12" cy="12" r="3.2" />
-              <path d="M12 2v3.5M12 18.5V22M2 12h3.5M18.5 12H22" />
+              <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+              <path d="m14.5 7.5-5 5" />
+              <path d="m9.5 7.5 5 5" />
             </svg>
             here
           </button>
@@ -189,7 +230,8 @@ export default function LocationCard({
             )}
             {!searching && !error && hits.length === 0 && (
               <li className="px-3 py-2.5 text-xs text-ink-soft">
-                No matches in the Philippines. Press Enter to retry, or click the map.
+                No matches inside General Santos City. Press Enter to retry, or click
+                the map.
               </li>
             )}
             {hits.map((h, i) => (

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import FareMap, { type LatLng } from "./FareMap";
 import LocationCard from "./LocationCard";
 import ResultTicket from "./ResultTicket";
-import { haversineKm, guessCluster } from "../data/fareData";
+import { guessCluster, haversineKm, isWithinCity } from "../data/fareData";
 import { Reveal } from "../hooks";
 
 interface RouteResult {
@@ -23,6 +23,7 @@ export default function Calculator() {
   const [route, setRoute] = useState<RouteResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [fly, setFly] = useState<{ pos: [number, number]; ts: number } | null>(null);
+  const [pinNotice, setPinNotice] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   // auto-advance: once start is set, map clicks target the drop-off
@@ -30,8 +31,20 @@ export default function Calculator() {
     if (start && !end) setActivePin("end");
   }, [start, end]);
 
+  // clear the out-of-area notice a few seconds after it appears
+  useEffect(() => {
+    if (!pinNotice) return;
+    const t = setTimeout(() => setPinNotice(null), 5000);
+    return () => clearTimeout(t);
+  }, [pinNotice]);
+
   const handlePin = useCallback(
     (pos: LatLng) => {
+      if (!isWithinCity(pos.lat, pos.lng)) {
+        setPinNotice("Outside General Santos City — pick a spot inside the city.");
+        return;
+      }
+      setPinNotice(null);
       if (activePin === "start") {
         setStart(pos);
         setStartLabel("Pinned location");
@@ -205,12 +218,21 @@ export default function Calculator() {
               </button>
             </div>
 
-            {/* helper */}
-            <div className="pointer-events-none absolute bottom-6 left-3 z-[1100] hidden rounded-lg bg-ink/85 px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-tri-yellow backdrop-blur-sm sm:block">
-              {start && end
-                ? "both pins set — switch modes above to move one"
-                : `click the map to place ${activePin === "start" ? "the START pin" : "the DROP-OFF pin"}`}
-            </div>
+            {/* helper / out-of-area notice */}
+            {pinNotice ? (
+              <div
+                role="status"
+                className="pointer-events-none absolute bottom-6 left-3 z-[1100] max-w-[calc(100%-1.5rem)] rounded-lg bg-tri-red px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-cream shadow-md"
+              >
+                {pinNotice}
+              </div>
+            ) : (
+              <div className="pointer-events-none absolute bottom-6 left-3 z-[1100] hidden rounded-lg bg-ink/85 px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-tri-yellow backdrop-blur-sm sm:block">
+                {start && end
+                  ? "both pins set — switch modes above to move one"
+                  : `click the map to place ${activePin === "start" ? "the START pin" : "the DROP-OFF pin"}`}
+              </div>
+            )}
           </div>
         </Reveal>
 
