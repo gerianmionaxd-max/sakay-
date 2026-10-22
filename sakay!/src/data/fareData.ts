@@ -169,23 +169,23 @@ export const CLUSTERS: Cluster[] = [
     soft: "#f9e9e7",
     areas: [
       "Labangal",
-      "Culumpong",
-      "Apongpong",
+      "Calumpang",
+      "Apopong",
       "Tambler",
       "Fatima",
-      "Sinawawan",
-      "Bawing–Siguel",
+      "Sinawal",
+      "Siguel–Bawing",
       "Gensan Port",
     ],
     basis: "City Ordinance No. 37, s. 2018 (as amended, 2023)",
     refs: [
       [6.106, 125.166], // Labangal
-      [6.108, 125.172], // Culumpong
-      [6.101, 125.174], // Apongpong
+      [6.108, 125.172], // Calumpang
+      [6.101, 125.174], // Apopong
       [6.104, 125.181], // Tambler
       [6.1035, 125.177], // Fatima
-      [6.099, 125.171], // Sinawawan
-      [6.088, 125.172], // Bawing-Siguel
+      [6.099, 125.171], // Sinawal
+      [6.088, 125.172], // Siguel-Bawing
     ],
     rows: [
       { route: "KCC via Public Market to Petronas Gas Station (Brgy. Labangal)", km: 3.9, fare: 15 },
@@ -193,15 +193,15 @@ export const CLUSTERS: Cluster[] = [
       { route: "SM to Labangal Rd., Gensan Port North Gate (Brgy. Labangal)", km: 3.96, fare: 15 },
       { route: "CBD/Public Market to Bloomfields Subdivision (Brgy. Labangal)", km: 3.98, fare: 15 },
       { route: "CBD/Public Market to King Solomon Institute (Brgy. Labangal)", km: 3.99, fare: 15 },
-      { route: "CBD/Public Market to Brgy. Hall – Culumpong", km: 6, fare: 17 },
+      { route: "CBD/Public Market to Brgy. Hall – Calumpang", km: 6, fare: 17 },
       { route: "CBD/Public Market to Pk. Barrio Bloan (Brgy. Labangal)", km: 6, fare: 17 },
-      { route: "CBD/Public Market to Brgy. Hall – Apongpong", km: 8, fare: 19 },
+      { route: "CBD/Public Market to Brgy. Hall – Apopong", km: 8, fare: 19 },
       { route: "CBD/Public Market to Brgy. Hall – Tambler", km: 10, fare: 21 },
-      { route: "CBD/Public Market to Lanton (Brgy. Apongpong)", km: 11, fare: 22 },
+      { route: "CBD/Public Market to Lanton (Brgy. Apopong)", km: 11, fare: 22 },
       { route: "CBD/Public Market to Fishport Complex (Brgy. Tambler)", km: 11, fare: 22 },
       { route: "CBD/Public Market to Brgy. Hall – Fatima", km: 12, fare: 23 },
-      { route: "CBD/Public Market to Brgy. Hall – Sinawawan", km: 13, fare: 24 },
-      { route: "CBD/Public Market to Brgy. Hall – Bawing/Siguel", km: 18, fare: 29 },
+      { route: "CBD/Public Market to Brgy. Hall – Sinawal", km: 13, fare: 24 },
+      { route: "CBD/Public Market to Brgy. Hall – Siguel/Bawing", km: 18, fare: 29 },
     ],
   },
 ];
