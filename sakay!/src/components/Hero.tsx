@@ -15,7 +15,7 @@ const DESTINATIONS = [
   "Olympog",
   "Tambler",
   "Fatima",
-  "Bawing–Siguel",
+  "Siguel–Bawing",
   "Upper Labay",
   "NLSA Junction",
 ];

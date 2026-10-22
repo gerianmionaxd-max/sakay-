@@ -247,7 +247,10 @@ export default function Calculator() {
               className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-ink bg-cream px-3 py-2 font-mono text-[11px] font-bold uppercase tracking-wider transition hover:-translate-y-0.5 hover:bg-tri-yellow disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:bg-cream"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M7 4v13M7 4L3.5 7.5M7 4l3.5 3.5M17 20V7m0 13l3.5-3.5M17 20l-3.5-3.5" />
+                <path d="m21 16-4 4-4-4" />
+                <path d="M17 20V4" />
+                <path d="m3 8 4-4 4 4" />
+                <path d="M7 4v16" />
               </svg>
               Swap
             </button>
@@ -257,7 +260,11 @@ export default function Calculator() {
               className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-ink bg-cream px-3 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-tri-red transition hover:-translate-y-0.5 hover:bg-tri-red hover:text-cream disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:bg-cream"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 7h16M9 7V4h6v3M6.5 7l1 13h9l1-13M10 11v6M14 11v6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                <path d="M3 6h18" />
+                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
               </svg>
               Start over
             </button>
