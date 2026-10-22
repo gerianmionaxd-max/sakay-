@@ -24,6 +24,18 @@
 
 html {
   scroll-behavior: smooth;
+  /* keep anchor targets clear of the sticky nav */
+  scroll-padding-top: 5.5rem;
+  /* stop iOS inflating text in landscape */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* the sticky nav is taller once the mobile menu button is present */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 4.75rem;
+  }
 }
 
 body {
@@ -218,6 +230,27 @@ input[type="range"].fare-slider::-moz-range-thumb {
   to { transform: rotate(360deg); }
 }
 .spin-slow { animation: spinSlow 1s linear infinite; }
+
+/* ---------- touch refinements ---------- */
+@media (pointer: coarse) {
+  input[type="range"].fare-slider {
+    height: 12px;
+  }
+  input[type="range"].fare-slider::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+    border-width: 6px;
+  }
+  input[type="range"].fare-slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border-width: 6px;
+  }
+  /* hover transforms stick after a tap on touch screens */
+  .group:hover .hover-wiggle {
+    animation: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

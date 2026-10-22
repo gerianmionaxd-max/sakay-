@@ -57,7 +57,7 @@ export default function FareMatrix() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={`Search ${cluster.name.toLowerCase()} routes…`}
-            className="w-full rounded-lg border border-line bg-cream px-3.5 py-2 text-sm placeholder:text-ink-soft/60 focus:border-ink focus:outline-none focus:ring-2 focus:ring-tri-yellow/60 sm:w-64"
+            className="w-full rounded-lg border border-line bg-cream px-3.5 py-2 text-base placeholder:text-ink-soft/60 focus:border-ink focus:outline-none focus:ring-2 focus:ring-tri-yellow/60 sm:w-64 sm:text-sm"
           />
         </div>
       </Reveal>
@@ -85,12 +85,12 @@ export default function FareMatrix() {
             </p>
           </div>
 
-          <div className="max-h-[480px] overflow-auto bg-cream">
+          <div className="max-h-[60vh] overflow-auto bg-cream sm:max-h-[480px]">
             <table className="w-full border-collapse text-left">
               <thead>
                 <tr className="font-mono text-[10px] uppercase tracking-[0.18em]">
                   <th
-                    className="sticky top-0 z-10 border-b-2 px-5 py-3"
+                    className="sticky top-0 z-10 hidden border-b-2 px-3 py-3 sm:table-cell sm:px-5"
                     style={{ background: cluster.soft, color: cluster.colorDeep, borderColor: cluster.color }}
                   >
                     #
@@ -102,13 +102,13 @@ export default function FareMatrix() {
                     Route
                   </th>
                   <th
-                    className="sticky top-0 z-10 border-b-2 px-5 py-3 text-right"
+                    className="sticky top-0 z-10 border-b-2 px-3 py-3 text-right sm:px-5"
                     style={{ background: cluster.soft, color: cluster.colorDeep, borderColor: cluster.color }}
                   >
                     Distance
                   </th>
                   <th
-                    className="sticky top-0 z-10 border-b-2 px-5 py-3 text-right"
+                    className="sticky top-0 z-10 border-b-2 px-3 py-3 text-right sm:px-5"
                     style={{ background: cluster.soft, color: cluster.colorDeep, borderColor: cluster.color }}
                   >
                     Fare
@@ -122,18 +122,18 @@ export default function FareMatrix() {
                     className="group border-b border-line/70 text-sm transition-colors"
                     style={{ background: i % 2 ? "rgba(0,0,0,0.018)" : "transparent" }}
                   >
-                    <td className="px-5 py-2.5 font-mono text-xs text-ink-soft">
+                    <td className="hidden px-3 py-2.5 font-mono text-xs text-ink-soft sm:table-cell sm:px-5">
                       {String(i + 1).padStart(2, "0")}
                     </td>
-                    <td className="px-5 py-2.5 leading-snug">
+                    <td className="px-3 py-2.5 leading-snug sm:px-5">
                       <span className="transition-colors group-hover:text-ink">
                         {r.route}
                       </span>
                     </td>
-                    <td className="px-5 py-2.5 text-right font-mono text-xs font-bold">
+                    <td className="whitespace-nowrap px-3 py-2.5 text-right font-mono text-xs font-bold sm:px-5">
                       {r.km} km
                     </td>
-                    <td className="px-5 py-2.5 text-right">
+                    <td className="px-3 py-2.5 text-right sm:px-5">
                       <span
                         className="inline-block rounded-md px-2.5 py-0.5 font-mono text-xs font-bold text-cream transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:scale-105"
                         style={{ background: cluster.color }}
@@ -145,7 +145,7 @@ export default function FareMatrix() {
                 ))}
                 {rows.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-5 py-8 text-center text-sm text-ink-soft">
+                    <td colSpan={4} className="px-3 py-8 text-center text-sm text-ink-soft sm:px-5">
                       No routes match “{q}” in the {cluster.name}.
                     </td>
                   </tr>
