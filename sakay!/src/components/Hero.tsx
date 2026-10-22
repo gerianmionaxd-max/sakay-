@@ -79,7 +79,7 @@ export default function Hero() {
       </nav>
 
       {/* hero body */}
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-12 pt-12 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pt-16">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-12 pt-12 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:pt-16">
         <div>
           <Reveal>
             <p className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-cream px-3.5 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] shadow-[3px_3px_0_rgba(27,36,64,0.85)]">
@@ -151,13 +151,13 @@ export default function Hero() {
         </div>
 
         <Reveal delay={200} className="relative flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-[520px]">
+          <div className="relative w-full max-w-[640px]">
             {/* dashed ring carried over from the old illustration, now framing the photo */}
             <div
               aria-hidden="true"
               className="absolute -inset-3 -z-10 rounded-[1.6rem] border-4 border-dashed border-tri-yellow/70"
             />
-            <figure className="overflow-hidden rounded-2xl border-[3px] border-ink bg-ink shadow-[10px_10px_0_rgba(27,36,64,0.16)]">
+            <figure className="overflow-hidden rounded-2xl border-[3px] border-ink bg-ink">
               <img
                 src={tricyclesInTraffic}
                 alt="A queue of blue GenSan tricycles packed into traffic, with motorcycle riders weaving between them"

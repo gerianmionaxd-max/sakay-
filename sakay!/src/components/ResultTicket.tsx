@@ -79,9 +79,10 @@ export default function ResultTicket({
               <span className="ml-1 text-base font-bold text-ink-soft">min</span>
             </p>
           </div>
-          <svg className="mb-1 h-7 w-7 text-ink-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="13" r="8" />
-            <path d="M12 9v4l2.8 2M9 2h6" />
+          <svg className="mb-1 h-7 w-7 text-ink-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="10" x2="14" y1="2" y2="2" />
+            <line x1="12" x2="15" y1="14" y2="11" />
+            <circle cx="12" cy="14" r="8" />
           </svg>
         </div>
 
@@ -95,10 +96,10 @@ export default function ResultTicket({
               <Num value={fare ? fare.total : null} format={(n) => pes(Math.round(n))} />
             </p>
           </div>
-          <svg className="mb-1 h-8 w-8 text-tri-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="9.2" />
-            <path d="M14.8 7.2c-.6-.9-1.7-1.4-3-1.4-2.2 0-3.6 1.3-3.6 3s1.4 2.4 3.6 3 3.6 1.3 3.6 3-1.4 3-3.6 3c-1.3 0-2.4-.5-3-1.4" />
-            <path d="M8.6 6v12" strokeWidth="1.4" />
+          <svg className="mb-1 h-8 w-8 text-tri-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20 11H4" />
+            <path d="M20 7H4" />
+            <path d="M7 21V4a1 1 0 0 1 1-1h4a1 1 0 0 1 0 12H7" />
           </svg>
         </div>
 
