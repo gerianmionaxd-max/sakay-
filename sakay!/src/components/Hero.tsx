@@ -1,3 +1,4 @@
+import tricyclesInTraffic from "../assets/tricycles-in-traffic-jam.webp";
 import { Reveal } from "../hooks";
 
 const DESTINATIONS = [
@@ -18,67 +19,6 @@ const DESTINATIONS = [
   "Upper Labay",
   "NLSA Junction",
 ];
-
-function TricycleArt() {
-  return (
-    <svg
-      viewBox="0 0 340 240"
-      className="floaty h-auto w-full max-w-[420px]"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="Painted GenSan tricycle"
-    >
-      {/* fare board on roof */}
-      <g>
-        <rect x="58" y="18" width="150" height="40" rx="7" fill="#1b2440" stroke="#0e1526" strokeWidth="3" />
-        <text x="133" y="38" textAnchor="middle" fontFamily="'Space Mono', monospace" fontWeight="700" fontSize="13" fill="#ffc531">
-          ₱15 + ₱1 / km
-        </text>
-        <text x="133" y="52" textAnchor="middle" fontFamily="'Space Mono', monospace" fontSize="8.5" fill="#f9f3e6" letterSpacing="2">
-          GENSAN CITY
-        </text>
-        <rect x="76" y="58" width="8" height="16" fill="#1b2440" />
-        <rect x="186" y="58" width="8" height="16" fill="#1b2440" />
-      </g>
-
-      {/* cart body */}
-      <path d="M40 178 L58 74 Q60 66 68 66 L214 66 Q222 66 222 74 L222 178 Z" fill="#d8453e" stroke="#1b2440" strokeWidth="4" />
-      {/* yellow skirt stripe */}
-      <path d="M43 158 L219 158 L222 178 L40 178 Z" fill="#ffc531" stroke="#1b2440" strokeWidth="3" />
-      {/* porthole window */}
-      <path d="M78 88 Q78 82 84 82 L196 82 Q202 82 202 88 L202 128 Q202 134 196 134 L84 134 Q78 134 78 128 Z" fill="#f9f3e6" stroke="#1b2440" strokeWidth="3.5" />
-      <path d="M92 82 L92 134" stroke="#1b2440" strokeWidth="2.5" />
-      <path d="M186 82 L186 134" stroke="#1b2440" strokeWidth="2.5" />
-      {/* side star decal */}
-      <path d="M140 143 l4.8 9.7 10.7 1.6 -7.7 7.5 1.8 10.7 -9.6-5.1 -9.6 5.1 1.8-10.7 -7.7-7.5 10.7-1.6 Z" fill="#ffc531" stroke="#1b2440" strokeWidth="2" />
-
-      {/* motorcycle front */}
-      <path d="M222 108 Q258 96 278 104 L288 112" stroke="#1b2440" strokeWidth="5" strokeLinecap="round" />
-      <circle cx="284" cy="112" r="7" fill="#ffc531" stroke="#1b2440" strokeWidth="3" />
-      {/* handlebar */}
-      <path d="M266 92 L274 104" stroke="#1b2440" strokeWidth="4" strokeLinecap="round" />
-
-      {/* wheels */}
-      <g>
-        <circle cx="96" cy="186" r="30" fill="#1b2440" />
-        <circle cx="96" cy="186" r="14" fill="#f9f3e6" stroke="#ffc531" strokeWidth="4" />
-        <circle cx="96" cy="186" r="3.5" fill="#1b2440" />
-      </g>
-      <g>
-        <circle cx="252" cy="186" r="30" fill="#1b2440" />
-        <circle cx="252" cy="186" r="14" fill="#f9f3e6" stroke="#ffc531" strokeWidth="4" />
-        <circle cx="252" cy="186" r="3.5" fill="#1b2440" />
-      </g>
-      {/* mudguard over back wheel */}
-      <path d="M62 172 A40 40 0 0 1 130 164" stroke="#2f6ba7" strokeWidth="8" strokeLinecap="round" />
-
-      {/* ground */}
-      <path d="M18 218 H322" stroke="#1b2440" strokeWidth="4" strokeLinecap="round" strokeDasharray="2 16" />
-      {/* speed lines */}
-      <path d="M14 120 H44 M6 140 H30 M14 160 H40" stroke="#ffc531" strokeWidth="5" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 const chips = [
   { label: "Base fare", value: "₱15.00", note: "first 4 km" },
@@ -211,9 +151,22 @@ export default function Hero() {
         </div>
 
         <Reveal delay={200} className="relative flex justify-center lg:justify-end">
-          <div className="relative">
-            <div className="absolute -inset-6 -z-10 rounded-full border-4 border-dashed border-tri-yellow/70" />
-            <TricycleArt />
+          <div className="relative w-full max-w-[520px]">
+            {/* dashed ring carried over from the old illustration, now framing the photo */}
+            <div
+              aria-hidden="true"
+              className="absolute -inset-3 -z-10 rounded-[1.6rem] border-4 border-dashed border-tri-yellow/70"
+            />
+            <figure className="overflow-hidden rounded-2xl border-[3px] border-ink bg-ink shadow-[10px_10px_0_rgba(27,36,64,0.16)]">
+              <img
+                src={tricyclesInTraffic}
+                alt="A queue of blue GenSan tricycles packed into traffic, with motorcycle riders weaving between them"
+                width={580}
+                height={499}
+                decoding="async"
+                className="aspect-[7/6] w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
+              />
+            </figure>
           </div>
         </Reveal>
       </div>
