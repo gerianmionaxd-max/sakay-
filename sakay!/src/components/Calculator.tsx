@@ -150,7 +150,7 @@ export default function Calculator() {
   };
 
   return (
-    <section id="calculator" className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6">
+    <section id="calculator" className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
       <Reveal>
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -198,7 +198,7 @@ export default function Calculator() {
             <div className="absolute left-3 top-3 z-[1100] flex overflow-hidden rounded-full border-2 border-ink bg-cream shadow-md">
               <button
                 onClick={() => setActivePin("start")}
-                className={`px-3.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition ${
+                className={`px-3.5 py-2 font-mono text-[11px] font-bold uppercase tracking-wider transition sm:py-1.5 ${
                   activePin === "start"
                     ? "bg-tri-yellow text-ink"
                     : "text-ink-soft hover:bg-paper"
@@ -208,7 +208,7 @@ export default function Calculator() {
               </button>
               <button
                 onClick={() => setActivePin("end")}
-                className={`px-3.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition ${
+                className={`px-3.5 py-2 font-mono text-[11px] font-bold uppercase tracking-wider transition sm:py-1.5 ${
                   activePin === "end"
                     ? "bg-tri-red text-cream"
                     : "text-ink-soft hover:bg-paper"
@@ -222,12 +222,12 @@ export default function Calculator() {
             {pinNotice ? (
               <div
                 role="status"
-                className="pointer-events-none absolute bottom-6 left-3 z-[1100] max-w-[calc(100%-1.5rem)] rounded-lg bg-tri-red px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-cream shadow-md"
+                className="pointer-events-none absolute bottom-20 left-3 z-[1100] max-w-[calc(100%-1.5rem)] rounded-lg bg-tri-red px-2.5 py-1.5 font-mono text-[9px] font-bold uppercase leading-snug tracking-wider text-cream shadow-md sm:bottom-6 sm:px-3 sm:py-2 sm:text-[10px]"
               >
                 {pinNotice}
               </div>
             ) : (
-              <div className="pointer-events-none absolute bottom-6 left-3 z-[1100] hidden rounded-lg bg-ink/85 px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-tri-yellow backdrop-blur-sm sm:block">
+              <div className="pointer-events-none absolute bottom-20 left-3 z-[1100] max-w-[calc(100%-1.5rem)] rounded-lg bg-ink/85 px-2.5 py-1.5 font-mono text-[9px] uppercase leading-snug tracking-wider text-tri-yellow backdrop-blur-sm sm:bottom-6 sm:px-3 sm:py-2 sm:text-[10px]">
                 {start && end
                   ? "both pins set — switch modes above to move one"
                   : `click the map to place ${activePin === "start" ? "the START pin" : "the DROP-OFF pin"}`}
@@ -266,7 +266,7 @@ export default function Calculator() {
             <button
               onClick={swap}
               disabled={!start && !end}
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-ink bg-cream px-3 py-2 font-mono text-[11px] font-bold uppercase tracking-wider transition hover:-translate-y-0.5 hover:bg-tri-yellow disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:bg-cream"
+              className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border-2 border-ink bg-cream px-3 py-2 font-mono text-[11px] font-bold uppercase tracking-wider transition sm:min-h-0 hover:-translate-y-0.5 hover:bg-tri-yellow disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:bg-cream"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="m21 16-4 4-4-4" />
@@ -279,7 +279,7 @@ export default function Calculator() {
             <button
               onClick={clearAll}
               disabled={!start && !end}
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-ink bg-cream px-3 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-tri-red transition hover:-translate-y-0.5 hover:bg-tri-red hover:text-cream disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:bg-cream"
+              className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border-2 border-ink bg-cream px-3 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-tri-red transition sm:min-h-0 hover:-translate-y-0.5 hover:bg-tri-red hover:text-cream disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:bg-cream"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M10 11v6" />

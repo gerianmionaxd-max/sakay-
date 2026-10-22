@@ -1,5 +1,13 @@
+import { useState } from "react";
 import tricyclesInTraffic from "../assets/tricycles-in-traffic-jam.webp";
 import { Reveal } from "../hooks";
+
+const NAV_LINKS = [
+  { href: "#calculator", label: "Calculate" },
+  { href: "#how", label: "How it works" },
+  { href: "#clusters", label: "Clusters" },
+  { href: "#matrix", label: "Fare matrix" },
+] as const;
 
 const DESTINATIONS = [
   "Bulaong Terminal",
@@ -27,12 +35,17 @@ const chips = [
 ];
 
 export default function Hero() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <header className="relative overflow-hidden">
-      {/* faint giant peso watermark */}
-      <span className="pointer-events-none absolute -right-10 -top-16 select-none font-display text-[26rem] leading-none text-ink/[0.045]">
-        ₱
-      </span>
+    <header className="relative overflow-x-clip">
+      {/* faint giant peso watermark — clipped in its own layer so the header
+          itself never becomes a scroll container (which would break sticky) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <span className="absolute -right-10 -top-16 select-none font-display text-[26rem] leading-none text-ink/[0.045]">
+          ₱
+        </span>
+      </div>
 
       {/* nav */}
       <nav className="sticky top-0 z-[1300] border-b-2 border-ink/80 bg-paper/90 backdrop-blur-sm">
@@ -94,24 +107,82 @@ export default function Hero() {
           </a>
 
           <div className="hidden items-center gap-6 font-mono text-[11px] font-bold uppercase tracking-widest md:flex">
-            <a href="#calculator" className="underline-offset-4 transition hover:underline hover:decoration-tri-yellow hover:decoration-4">
-              Calculate
-            </a>
-            <a href="#how" className="underline-offset-4 transition hover:underline hover:decoration-tri-yellow hover:decoration-4">
-              How it works
-            </a>
-            <a href="#clusters" className="underline-offset-4 transition hover:underline hover:decoration-tri-yellow hover:decoration-4">
-              Clusters
-            </a>
-            <a href="#matrix" className="underline-offset-4 transition hover:underline hover:decoration-tri-yellow hover:decoration-4">
-              Fare matrix
-            </a>
+            {NAV_LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="underline-offset-4 transition hover:underline hover:decoration-tri-yellow hover:decoration-4"
+              >
+                {l.label}
+              </a>
+            ))}
           </div>
 
-          <span className="rounded-full border-2 border-ink bg-cream px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider shadow-[2px_2px_0_rgba(27,36,64,0.9)]">
-            Ord. No. 8 s. 2023
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="hidden rounded-full border-2 border-ink bg-cream px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider shadow-[2px_2px_0_rgba(27,36,64,0.9)] sm:inline-block">
+              Ord. No. 8 s. 2023
+            </span>
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-ink bg-cream shadow-[2px_2px_0_rgba(27,36,64,0.9)] transition active:translate-y-0.5 active:shadow-[1px_1px_0_rgba(27,36,64,0.9)] md:hidden"
+            >
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                {menuOpen ? (
+                  <>
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M4 7h16" />
+                    <path d="M4 12h16" />
+                    <path d="M4 17h16" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
+
+        {/* mobile menu */}
+        {menuOpen && (
+          <div id="mobile-nav" className="border-t-2 border-ink/15 bg-paper md:hidden">
+            <div className="mx-auto max-w-7xl px-4 py-2 sm:px-6">
+              <ul className="divide-y divide-line">
+                {NAV_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex min-h-[52px] items-center justify-between font-mono text-xs font-bold uppercase tracking-widest text-ink"
+                    >
+                      {l.label}
+                      <svg className="h-4 w-4 text-ink-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M4 12h15m0 0-6-6m6 6-6 6" />
+                      </svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p className="py-3 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-soft">
+                Ord. No. 8 s. 2023 · ₱15 + ₱1/km
+              </p>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* hero body */}
@@ -124,7 +195,7 @@ export default function Hero() {
             </p>
           </Reveal>
           <Reveal delay={90}>
-            <h1 className="mt-5 font-display text-[2.6rem] leading-[1.04] sm:text-6xl">
+            <h1 className="mt-5 font-display text-[2.1rem] leading-[1.05] min-[400px]:text-[2.35rem] sm:text-5xl lg:text-6xl">
               <span className="text-tri-red">Pamasahe?</span>
               <br />
               Sakay na
@@ -141,7 +212,7 @@ export default function Hero() {
             </h1>
           </Reveal>
           <Reveal delay={180}>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-soft sm:mt-6 sm:text-lg">
               Pin your start and drop-off on the map, and <strong className="text-ink">Sakay!</strong>{" "}
               measures the actual road, estimates your ETA, and prints the exact
               tricycle fare the city ordinance says you should pay. No more
@@ -149,10 +220,10 @@ export default function Hero() {
             </p>
           </Reveal>
           <Reveal delay={260}>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 href="#calculator"
-                className="group inline-flex items-center gap-2.5 rounded-xl border-2 border-ink bg-tri-yellow px-6 py-3.5 font-display text-lg tracking-wide shadow-[6px_6px_0_rgba(27,36,64,1)] transition-all hover:-translate-y-1 hover:shadow-[8px_9px_0_rgba(27,36,64,1)] active:translate-y-0 active:shadow-[3px_3px_0_rgba(27,36,64,1)]"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl border-2 border-ink bg-tri-yellow px-6 py-3.5 font-display text-lg tracking-wide shadow-[6px_6px_0_rgba(27,36,64,1)] transition-all hover:-translate-y-1 hover:shadow-[8px_9px_0_rgba(27,36,64,1)] active:translate-y-0 active:shadow-[3px_3px_0_rgba(27,36,64,1)]"
               >
                 Compute my fare
                 <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
@@ -161,25 +232,25 @@ export default function Hero() {
               </a>
               <a
                 href="#matrix"
-                className="inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-cream px-5 py-3.5 font-display text-base tracking-wide transition-all hover:-translate-y-1 hover:bg-ink hover:text-tri-yellow"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-cream px-5 py-3.5 font-display text-base tracking-wide transition-all hover:-translate-y-1 hover:bg-ink hover:text-tri-yellow"
               >
                 Browse the matrix
               </a>
             </div>
           </Reveal>
           <Reveal delay={340}>
-            <div className="mt-9 grid max-w-xl grid-cols-3 gap-3">
+            <div className="mt-8 grid max-w-xl grid-cols-3 gap-2 sm:mt-9 sm:gap-3">
               {chips.map((c, i) => (
                 <div
                   key={c.label}
-                  className="group rounded-xl border-2 border-ink bg-cream p-3 shadow-[4px_4px_0_rgba(27,36,64,0.15)] transition-all hover:-translate-y-1 hover:shadow-[5px_6px_0_rgba(27,36,64,0.25)]"
+                  className="group rounded-xl border-2 border-ink bg-cream p-2.5 shadow-[4px_4px_0_rgba(27,36,64,0.15)] transition-all hover:-translate-y-1 hover:shadow-[5px_6px_0_rgba(27,36,64,0.25)] sm:p-3"
                   style={{ transitionDelay: `${i * 30}ms` }}
                 >
                   <p className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-ink-soft">
                     {c.label}
                   </p>
-                  <p className="mt-1 font-display text-2xl text-ink sm:text-[1.7rem]">{c.value}</p>
-                  <p className="mt-0.5 text-[11px] leading-tight text-ink-soft">{c.note}</p>
+                  <p className="mt-1 font-display text-lg text-ink min-[400px]:text-2xl sm:text-[1.7rem]">{c.value}</p>
+                  <p className="mt-0.5 text-[10px] leading-tight text-ink-soft sm:text-[11px]">{c.note}</p>
                 </div>
               ))}
             </div>

@@ -151,7 +151,7 @@ export default function LocationCard({
         {value && (
           <button
             onClick={onClear}
-            className="rounded-md px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-soft underline decoration-dotted underline-offset-2 hover:bg-paper hover:text-tri-red"
+            className="rounded-md px-2 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-soft underline decoration-dotted underline-offset-2 hover:bg-paper hover:text-tri-red sm:py-0.5"
             title="Remove pin"
           >
             clear
@@ -192,12 +192,12 @@ export default function LocationCard({
             }}
             onBlur={() => setTimeout(() => setOpen(false), 180)}
             placeholder="Search “Bulaong”, “Labangal”…"
-            className="w-full rounded-lg border border-line bg-paper px-3 py-2 text-sm placeholder:text-ink-soft/60 focus:border-ink focus:outline-none focus:ring-2 focus:ring-tri-yellow/60"
+            className="w-full rounded-lg border border-line bg-paper px-3 py-2 text-base placeholder:text-ink-soft/60 focus:border-ink focus:outline-none focus:ring-2 focus:ring-tri-yellow/60 sm:text-sm"
           />
           <button
             onClick={useMyLocation}
             title="Use my current location"
-            className="group flex shrink-0 items-center gap-1 rounded-lg border border-line bg-paper px-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink transition hover:border-ink hover:bg-tri-yellow"
+            className="group flex min-h-[44px] shrink-0 items-center gap-1 rounded-lg border border-line bg-paper px-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink transition hover:border-ink hover:bg-tri-yellow sm:min-h-0"
           >
             <svg
               className="hover-wiggle h-4 w-4"
@@ -218,7 +218,7 @@ export default function LocationCard({
         </div>
 
         {open && (
-          <ul className="absolute left-0 right-0 top-full z-[1200] mt-1.5 overflow-hidden rounded-lg border border-line bg-cream shadow-xl">
+          <ul className="absolute left-0 right-0 top-full z-[1200] mt-1.5 max-h-[45vh] overflow-y-auto overscroll-contain rounded-lg border border-line bg-cream shadow-xl">
             {searching && (
               <li className="flex items-center gap-2 px-3 py-2.5 text-xs text-ink-soft">
                 <span className="spin-slow inline-block h-3.5 w-3.5 rounded-full border-2 border-line border-t-ink" />
