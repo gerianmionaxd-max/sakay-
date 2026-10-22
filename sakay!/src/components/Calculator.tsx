@@ -180,10 +180,10 @@ export default function Calculator() {
         </div>
       </Reveal>
 
-      <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+      <div className="grid gap-5 lg:grid-cols-[1.7fr_1fr]">
         {/* MAP */}
         <Reveal delay={80} className="relative">
-          <div className="relative h-[380px] overflow-hidden rounded-2xl border-2 border-ink shadow-[10px_10px_0_rgba(27,36,64,0.14)] sm:h-[520px]">
+          <div className="relative h-[420px] overflow-hidden rounded-2xl border-2 border-ink shadow-[10px_10px_0_rgba(27,36,64,0.14)] sm:h-[560px] lg:h-[660px]">
             <FareMap
               start={start}
               end={end}
