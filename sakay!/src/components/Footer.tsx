@@ -114,12 +114,12 @@ export default function Footer() {
                 Sakay<span className="text-tri-yellow">!</span>
               </p>
               <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-cream/50">
-                General Santos City · 6.1141° N, 125.1728° E
+                General Santos City · Gerian Miona
               </p>
             </div>
           </div>
           <p className="font-mono text-[10px] uppercase tracking-widest text-cream/40">
-            Built with respeto para sa mga tricycle drivers — salamat sa pagpasaher!
+            Built with respeto para sa mga tricycle drivers — salamat heneral!
           </p>
         </div>
       </div>
